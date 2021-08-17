@@ -6,7 +6,7 @@ Data and code for ICCV 2021 paper [Distant Supervision for Scene Graph Generatio
 The paper applies distant supervision to visual relation detection. The intuition of distant supervision is that possible predicates between  entity pairs are highly dependent on the entity types. For example, there might be `ride on`, `feed` between human and horse in images, but it is less likely to be  `covering`.  Thus, we apply this correlation to take advantage of unlabeled data. Given the knowledge base containing possible combinations between entity types and predicates, our framework enables *distantly supervised* training without using any human-annotated relation data, and *semi-supervised* training that incorporates both human-labeled data and distantly labeled data. To build the knowledge base, we parse all possible (subject, predicate, object) triplets from Conceptual Caption dataset, resulting in a knowledge base containing 1.9M distinct relational triples. 
 
 ### Code
-Thanks to the elegant code from [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch). This project is built on their framework. There are also some difference from their settings. We show the difference in [later section](#difference-from-scene-graph-benchmarkpytorch).
+Thanks to the elegant code from [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch). This project is built on their framework. There are also some differences from their settings. We show the differences in a [later section](#difference-from-scene-graph-benchmarkpytorch).
 
 ### The Illustration of Distant Supervision
 ![alt text](demo/teaser.png "Illustration of Distant Supervision")
@@ -24,15 +24,15 @@ Our metrics are directly adapted from [Scene-Graph-Benchmark.pytorch](https://gi
 
 ## Object Detector
 
-### Download Pretrained Detector
+### Download Pre-trained Detector
 
-In generally SGG tasks, detector is pre-trained on the object bounding box annotations on training set. We directly use the [pretrained Faster R-CNN](https://onedrive.live.com/embed?cid=22376FFAD72C4B64&resid=22376FFAD72C4B64%21779870&authkey=AH5CPVb9g5E67iQ) provided by [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch), because our 20 categories setting and their 50 category setting have the same training set.
+In generally SGG tasks, the detector is pre-trained on the object bounding box annotations on training set. We directly use the [pre-trained Faster R-CNN](https://onedrive.live.com/embed?cid=22376FFAD72C4B64&resid=22376FFAD72C4B64%21779870&authkey=AH5CPVb9g5E67iQ) provided by [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch), because our 20 category setting and their 50 category setting have the same training set.
 
 After you download the [Faster R-CNN model](https://onedrive.live.com/embed?cid=22376FFAD72C4B64&resid=22376FFAD72C4B64%21779870&authkey=AH5CPVb9g5E67iQ), please extract all the files to the directory `/home/username/checkpoints/pretrained_faster_rcnn`. To train your own Faster R-CNN model, please follow the next section.
 
-The above pretrained Faster R-CNN model achives 38.52/26.35/28.14 mAp on VG train/val/test set respectively.
+The above pre-trained Faster R-CNN model achives 38.52/26.35/28.14 mAp on VG train/val/test set respectively.
 
-### Pretrain Your Own Detector
+### Pre-train Your Own Detector
 
 In this work, we do not modify the Faster R-CNN part. The training process can be referred to the [origin code](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch/blob/master/README.md).
 
@@ -75,7 +75,7 @@ All checkpoints can be downloaded from [MODEL_ZOO.md](MODEL_ZOO.md).
 
 ## Preparation
 
-Before running the code, you need specify current path as environment variable `SG` and the experiments' root directory as `EXP`.
+Before running the code, you need to specify the current path as environment variable `SG` and the experiments' root directory as `EXP`.
 
 ```sh
 # specify current directory as SG, e.g.:
@@ -126,7 +126,7 @@ sh cmds/20/motif/predcls/sup/train.sh
 
 Or just download the trained model [here](https://thunlp.oss-cn-qingdao.aliyuncs.com/predcls-sup-sup.tar.gz), and put it into `$EXP/20/predcls/sup/sup`.
 
-Noted that, for three tasks `predcls, sgcls, sgdet`, we all use supervised model of `predcls` task to initialize predicate label distributions. After the preparation, we can run:
+Noted that, for three tasks `Predcls, Sgcls, Sgdet`, we all use supervised model of `Predcls` task to initialize predicate label distributions. After the preparation, we can run:
 
 ```sh
 sh cmds/20/motif/predcls/semi/em_E_step1.sh
