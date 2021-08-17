@@ -1,5 +1,7 @@
 # Distant Supervision for Scene Graph Generation
 
+Data and code for ICCV 2021 paper [Distant Supervision for Scene Graph Generation](https://arxiv.org/abs/2103.15365).
+
 ## Introduction
 The paper applies distant supervision to visual relation detection. The intuition of distant supervision is that possible predicates between  entity pairs are highly dependent on the entity types. For example, there might be `ride on`, `feed` between human and horse in images, but it is less likely to be  `covering`.  Thus, we apply this correlation to take advantage of unlabeled data. Given the knowledge base containing possible combinations between entity types and predicates, our framework enable *distantly supervised* training without any annotation and *semi-supervised* training with startup seed annotation. To build the knowledge base, we parse all possible (subject, predicate, object) triplets from Conceptual Caption dataset, which contains over 3.3M image-text pairs collected from open webpages. 
 
@@ -135,14 +137,10 @@ sh cmds/20/motif/predcls/semi/em_M_step2.sh
 
 ## Difference from Scene-Graph-Benchmark.pytorch
 
-1. We close the data augmentation in our experiments.
-
-   This is actually a historical problem. In the beginning of the program, I tried a training strategy incompatible with data augmentation. However, when I change to the current method, I forgot to turn on the data augmentation.
-
-2. Fix a bug in evaluation.
+1. Fix a bug in evaluation.
 
    We found that in previous evaluation, there are sometimes duplicated triplets in images, e.g. `(1-man, ride, 2-horse)*3`. We fix this small bug and use only unique triplets.  By fixing the bug, the performance of the model will decrease somewhat. For example, the R@100 of predcls task will decrease about 1~3 points. 
 
-3. We conduct experiments on 20 categories predicate setting rather than 50 categories.
+2. We conduct experiments on 20 categories predicate setting rather than 50 categories.
 
-4. In evaluation, weakly supervised trained model uses **logits** rather than **softmax normalized scores** for relation triplets ranking. 
+3. In evaluation, weakly supervised trained model uses **logits** rather than **softmax normalized scores** for relation triplets ranking. 
