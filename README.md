@@ -19,6 +19,18 @@ Check [INSTALL.md](INSTALL.md) for installation instructions.
 
 Check [DATASET.md](DATASET.md) for instructions of dataset preprocessing.
 
+## KB
+
+The corresponding KB for 20 and 50 predicate classes can be found in the  [DATASET.md](DATASET.md). We also provide the [raw KB](https://thunlp.oss-cn-qingdao.aliyuncs.com/CC_allobjs_4000rels.json) without alignment to pre-defined relations.   The data format will looks like:
+
+```json
+{
+    "subject_object": [rel1, rel2, rel3...],
+}
+```
+
+
+
 ## Metrics
 Our metrics are directly adapted from [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch).
 
